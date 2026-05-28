@@ -79,5 +79,22 @@ const markup = images.map((image) =>
 </li>`
 ).join("");
 
-
 gallery.insertAdjacentHTML("beforeend", markup);
+
+gallery.addEventListener("click", handleClick);
+
+function handleClick(event) {
+  event.preventDefault();
+
+  if (event.target.nodeName !== "IMG") {
+    return;
+  }
+
+  const largeImageURL = event.target.dataset.source;
+  
+  const instance = basicLightbox.create(`
+  <img src="${largeImageURL}" alt="${event.target.alt}">
+`);
+
+instance.show();
+}
